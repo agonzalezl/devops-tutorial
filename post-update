@@ -1,0 +1,16 @@
+#!/bin/sh
+#
+# An example hook script to prepare a packed repository for use over
+# dumb transports.
+#
+# To enable this hook, rename this file to "post-update".
+
+branch=`echo $1 | cut -d/ -f3`
+
+echo "triggering hook for branch $branch ..."
+
+curl "http://user:password@jenkins:8080/job/folder/job/$branch/build?token=token"
+
+echo "...done!"
+
+git update-server-info
